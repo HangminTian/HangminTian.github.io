@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Drawable | HangminTian&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="类注释123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869* A Drawable is a general abstraction for &amp;quot;something that can b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Drawable">
+<meta property="og:url" content="http://yoursite.com/2017/10/03/Drawable/index.html">
+<meta property="og:site_name" content="HangminTian&#39;s Blog">
+<meta property="og:description" content="类注释123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869* A Drawable is a general abstraction for &amp;quot;something that can b">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/images/BitmapDrawable.png">
+<meta property="og:image" content="http://yoursite.com/images/ShapeDrawable.png">
+<meta property="og:image" content="http://yoursite.com/images/ShapeDrawable2.png">
+<meta property="og:updated_time" content="2017-10-10T06:55:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Drawable">
+<meta name="twitter:description" content="类注释123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869* A Drawable is a general abstraction for &amp;quot;something that can b">
+<meta name="twitter:image" content="http://yoursite.com/images/BitmapDrawable.png">
+  
+    <link rel="alternate" href="../../../../atom.xml" title="HangminTian&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="../../../../css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">HangminTian&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../../../atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Drawable" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2017-10-03T01:51:00.000Z" itemprop="datePublished">2017-10-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Drawable
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="类注释"><a href="#类注释" class="headerlink" title="类注释"></a>类注释</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">* A Drawable is a general abstraction for &quot;something that can be drawn.&quot;  Most</span><br><span class="line">* often you will deal with Drawable as the type of resource retrieved for</span><br><span class="line">* drawing things to the screen; the Drawable class provides a generic API for</span><br><span class="line">* dealing with an underlying visual resource that may take a variety of forms.</span><br><span class="line">* Unlike a &#123;@link android.view.View&#125;, a Drawable does not have any facility to</span><br><span class="line">* receive events or otherwise interact with the user.</span><br><span class="line">*</span><br><span class="line">* &lt;p&gt;In addition to simple drawing, Drawable provides a number of generic</span><br><span class="line">* mechanisms for its client to interact with what is being drawn:</span><br><span class="line">*</span><br><span class="line">* &lt;ul&gt;</span><br><span class="line">*     &lt;li&gt; The &#123;@link #setBounds&#125; method &lt;var&gt;must&lt;/var&gt; be called to tell the</span><br><span class="line">*     Drawable where it is drawn and how large it should be.  All Drawables</span><br><span class="line">*     should respect the requested size, often simply by scaling their</span><br><span class="line">*     imagery.  A client can find the preferred size for some Drawables with</span><br><span class="line">*     the &#123;@link #getIntrinsicHeight&#125; and &#123;@link #getIntrinsicWidth&#125; methods.</span><br><span class="line">*</span><br><span class="line">*     &lt;li&gt; The &#123;@link #getPadding&#125; method can return from some Drawables</span><br><span class="line">*     information about how to frame content that is placed inside of them.</span><br><span class="line">*     For example, a Drawable that is intended to be the frame for a button</span><br><span class="line">*     widget would need to return padding that correctly places the label</span><br><span class="line">*     inside of itself.</span><br><span class="line">*</span><br><span class="line">*     &lt;li&gt; The &#123;@link #setState&#125; method allows the client to tell the Drawable</span><br><span class="line">*     in which state it is to be drawn, such as &quot;focused&quot;, &quot;selected&quot;, etc.</span><br><span class="line">*     Some drawables may modify their imagery based on the selected state.</span><br><span class="line">*</span><br><span class="line">*     &lt;li&gt; The &#123;@link #setLevel&#125; method allows the client to supply a single</span><br><span class="line">*     continuous controller that can modify the Drawable is displayed, such as</span><br><span class="line">*     a battery level or progress level.  Some drawables may modify their</span><br><span class="line">*     imagery based on the current level.</span><br><span class="line">*</span><br><span class="line">*     &lt;li&gt; A Drawable can perform animations by calling back to its client</span><br><span class="line">*     through the &#123;@link Callback&#125; interface.  All clients should support this</span><br><span class="line">*     interface (via &#123;@link #setCallback&#125;) so that animations will work.  A</span><br><span class="line">*     simple way to do this is through the system facilities such as</span><br><span class="line">*     &#123;@link android.view.View#setBackground(Drawable)&#125; and</span><br><span class="line">*     &#123;@link android.widget.ImageView&#125;.</span><br><span class="line">* &lt;/ul&gt;</span><br><span class="line">*</span><br><span class="line">* Though usually not visible to the application, Drawables may take a variety</span><br><span class="line">* of forms:</span><br><span class="line">*</span><br><span class="line">* &lt;ul&gt;</span><br><span class="line">*     &lt;li&gt; &lt;b&gt;Bitmap&lt;/b&gt;: the simplest Drawable, a PNG or JPEG image.</span><br><span class="line">*     &lt;li&gt; &lt;b&gt;Nine Patch&lt;/b&gt;: an extension to the PNG format allows it to</span><br><span class="line">*     specify information about how to stretch it and place things inside of</span><br><span class="line">*     it.</span><br><span class="line">*     &lt;li&gt; &lt;b&gt;Shape&lt;/b&gt;: contains simple drawing commands instead of a raw</span><br><span class="line">*     bitmap, allowing it to resize better in some cases.</span><br><span class="line">*     &lt;li&gt; &lt;b&gt;Layers&lt;/b&gt;: a compound drawable, which draws multiple underlying</span><br><span class="line">*     drawables on top of each other.</span><br><span class="line">*     &lt;li&gt; &lt;b&gt;States&lt;/b&gt;: a compound drawable that selects one of a set of</span><br><span class="line">*     drawables based on its state.</span><br><span class="line">*     &lt;li&gt; &lt;b&gt;Levels&lt;/b&gt;: a compound drawable that selects one of a set of</span><br><span class="line">*     drawables based on its level.</span><br><span class="line">*     &lt;li&gt; &lt;b&gt;Scale&lt;/b&gt;: a compound drawable with a single child drawable,</span><br><span class="line">*     whose overall size is modified based on the current level.</span><br><span class="line">* &lt;/ul&gt;</span><br><span class="line">*</span><br><span class="line">* &lt;div class=&quot;special reference&quot;&gt;</span><br><span class="line">* &lt;h3&gt;Developer Guides&lt;/h3&gt;</span><br><span class="line">* &lt;p&gt;For more information about how to use drawables, read the</span><br><span class="line">* &lt;a href=&quot;&#123;@docRoot&#125;guide/topics/graphics/2d-graphics.html&quot;&gt;Canvas and Drawables&lt;/a&gt; developer</span><br><span class="line">* guide. For information and examples of creating drawable resources (XML or bitmap files that</span><br><span class="line">* can be loaded in code), read the</span><br><span class="line">* &lt;a href=&quot;&#123;@docRoot&#125;guide/topics/resources/drawable-resource.html&quot;&gt;Drawable Resources&lt;/a&gt;</span><br><span class="line">* document.&lt;/p&gt;&lt;/div&gt;</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<p>Drawable是一个抽象概念，其中最常见的是资源中的图片和颜色。不同于View，Drawable无法和用户交互。</p>
+<h2 id="一些通用API："><a href="#一些通用API：" class="headerlink" title="一些通用API："></a>一些通用API：</h2><ul>
+<li>setBounds</li>
+<li>getPadding</li>
+<li>setState</li>
+<li>setLevel</li>
+<li><p>setCallback</p>
+<p>基本上都是设置一些成员属性的值的API</p>
+<h2 id="Drawabled的各种形式"><a href="#Drawabled的各种形式" class="headerlink" title="Drawabled的各种形式"></a>Drawabled的各种形式</h2><p><li> <b>Bitmap</b>: 图片，PNG/JPEG<br></li><li> <b>Nine Patch</b>:点9图<br></li><li> <b>Shape</b>: shape标签的资源<br></li><li> <b>Layers</b>: layer-list标签的资源<br></li><li> <b>States</b>: selector标签的资源<br></li><li> <b>Levels</b>: level-list标签的资源<br></li><li> <b>Scale</b>: scale标签的资源</li></p>
+</li>
+</ul>
+<h1 id="两种最常用的Drawable例子"><a href="#两种最常用的Drawable例子" class="headerlink" title="两种最常用的Drawable例子"></a>两种最常用的Drawable例子</h1><h2 id="BitmapDrawable"><a href="#BitmapDrawable" class="headerlink" title="BitmapDrawable"></a>BitmapDrawable</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;bitmap xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:src=&quot;@drawable/image1&quot;</span><br><span class="line">    android:tileMode=&quot;repeat | mirror | clamp&quot;</span><br><span class="line">     /&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="../../../../images/BitmapDrawable.png" alt=""></p>
+<h2 id="ShapeDrawable"><a href="#ShapeDrawable" class="headerlink" title="ShapeDrawable"></a>ShapeDrawable</h2><h3 id="纯色"><a href="#纯色" class="headerlink" title="纯色"></a>纯色</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:shape=&quot;rectangle&quot; &gt;</span><br><span class="line"></span><br><span class="line">    &lt;solid android:color=&quot;#ff0000&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;corners</span><br><span class="line">        android:bottomLeftRadius=&quot;0dp&quot;</span><br><span class="line">        android:bottomRightRadius=&quot;15dp&quot;</span><br><span class="line">        android:topLeftRadius=&quot;10dp&quot;</span><br><span class="line">        android:topRightRadius=&quot;15dp&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;stroke</span><br><span class="line">        android:dashGap=&quot;2dp&quot;</span><br><span class="line">        android:dashWidth=&quot;10dp&quot;</span><br><span class="line">        android:width=&quot;2dp&quot;</span><br><span class="line">        android:color=&quot;#00ff00&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;/shape&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="../../../../images/ShapeDrawable.png" alt=""></p>
+<h3 id="渐变色"><a href="#渐变色" class="headerlink" title="渐变色"></a>渐变色</h3><p>渐变色有3种模式，对应源码中的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">   * Gradient is linear (default.)</span><br><span class="line">   */</span><br><span class="line">  public static final int LINEAR_GRADIENT = 0;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * Gradient is circular.</span><br><span class="line">   */</span><br><span class="line">  public static final int RADIAL_GRADIENT = 1;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * Gradient is a sweep.</span><br><span class="line">   */</span><br><span class="line">  public static final int SWEEP_GRADIENT  = 2;</span><br></pre></td></tr></table></figure></p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:shape=&quot;rectangle&quot; &gt;
+
+    &lt;gradient
+        android:centerColor=&quot;#00ff00&quot;
+        android:endColor=&quot;#0000ff&quot;
+        android:startColor=&quot;#ff0000&quot;
+        android:type=&quot;linear | radius | sweep&quot; /&gt;
+&lt;/shape&gt;
+</code></pre><p><img src="../../../../images/ShapeDrawable2.png" alt=""></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/10/03/Drawable/" data-id="cjk27s9w200013iz0ito4pm8p" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../07/IPC机制粗解/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          IPC机制粗解
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../../09/21/View的layout、draw过程/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">View的layout、draw过程</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/07/">July 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../07/IPC机制粗解/">IPC机制粗解</a>
+          </li>
+        
+          <li>
+            <a href="">Drawable</a>
+          </li>
+        
+          <li>
+            <a href="../../../09/21/View的layout、draw过程/">View的layout、draw过程</a>
+          </li>
+        
+          <li>
+            <a href="../../../09/21/view的measure的源码分析/">view的measure过程</a>
+          </li>
+        
+          <li>
+            <a href="../../../09/20/View的绘制/">View的绘制</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Hangmin Tian<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>1.Activity的生命周期 | HangminTian&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言本文是Android开发艺术探索的读书笔记第一篇。这不是我第一次读这本书，但应该说我第一次打算系统地读这本书，并留下点记录加深印象和理解。所谓正常情况，指的是Activity的 创建-&amp;gt;运行-&amp;gt;销毁 整个过程不被其它事情打断(比如屏幕旋转)。所谓异常情况，主要有2类：其一是onConfigurationChanged，比如屏幕发生旋转；其二是内存不足。 正常情况Activity生命">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1.Activity的生命周期">
+<meta property="og:url" content="http://yoursite.com/2017/07/26/Activity的生命周期/index.html">
+<meta property="og:site_name" content="HangminTian&#39;s Blog">
+<meta property="og:description" content="前言本文是Android开发艺术探索的读书笔记第一篇。这不是我第一次读这本书，但应该说我第一次打算系统地读这本书，并留下点记录加深印象和理解。所谓正常情况，指的是Activity的 创建-&amp;gt;运行-&amp;gt;销毁 整个过程不被其它事情打断(比如屏幕旋转)。所谓异常情况，主要有2类：其一是onConfigurationChanged，比如屏幕发生旋转；其二是内存不足。 正常情况Activity生命">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/images/activity_life_cycle1.png">
+<meta property="og:image" content="http://yoursite.com/images/activity_life_cycle2_1.png">
+<meta property="og:image" content="http://yoursite.com/images/activity_life_cycle2_2.png">
+<meta property="og:updated_time" content="2017-09-07T03:29:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="1.Activity的生命周期">
+<meta name="twitter:description" content="前言本文是Android开发艺术探索的读书笔记第一篇。这不是我第一次读这本书，但应该说我第一次打算系统地读这本书，并留下点记录加深印象和理解。所谓正常情况，指的是Activity的 创建-&amp;gt;运行-&amp;gt;销毁 整个过程不被其它事情打断(比如屏幕旋转)。所谓异常情况，主要有2类：其一是onConfigurationChanged，比如屏幕发生旋转；其二是内存不足。 正常情况Activity生命">
+<meta name="twitter:image" content="http://yoursite.com/images/activity_life_cycle1.png">
+  
+    <link rel="alternate" href="../../../../atom.xml" title="HangminTian&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="../../../../css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../../../index.html" id="logo">HangminTian&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../../../archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../../../atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Activity的生命周期" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="" class="article-date">
+  <time datetime="2017-07-26T07:12:00.000Z" itemprop="datePublished">2017-07-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      1.Activity的生命周期
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文是Android开发艺术探索的读书笔记第一篇。这不是我第一次读这本书，但应该说我第一次打算系统地读这本书，并留下点记录加深印象和理解。<br>所谓正常情况，指的是Activity的 创建-&gt;运行-&gt;销毁 整个过程不被其它事情打断(比如屏幕旋转)。<br>所谓异常情况，主要有2类：<br>其一是onConfigurationChanged，比如屏幕发生旋转；其二是内存不足。</p>
+<h1 id="正常情况Activity生命周期总图"><a href="#正常情况Activity生命周期总图" class="headerlink" title="正常情况Activity生命周期总图"></a>正常情况Activity生命周期总图</h1><p><img src="../../../../images/activity_life_cycle1.png" alt=""><br>其中，</p>
+<ul>
+<li>onCreate()和onDestory()是“存在”的维度结对的。一个Activity只能onCreate()一次，也只能onDestory()一次，对应Activity的创建和销毁。</li>
+<li>onStart()和onStop()是“可见”的维度结对的。onStart()后Activity处于可见状态，但还在后台；onStop后Activity不可见。</li>
+<li>onResume()和onPause()是“在前台”的维度结对的。onResume()后Activity处于前台，可以和用户交互；onPause()后，Activity可见但已不在前台。</li>
+</ul>
+<h2 id="question"><a href="#question" class="headerlink" title="question"></a>question</h2><h3 id="问题1："><a href="#问题1：" class="headerlink" title="问题1："></a>问题1：</h3><p>Q：Activity  A中启动Activity B，其生命周期过程是怎样的？<br>A：A.onPasue() -&gt; B.onCreate() -&gt; B.onStart() -&gt; B.onResume()-&gt;A.onStop()<br>注：如果B透明，则A不会onStop()。onStop()后Activity不可见。</p>
+<p>在com.android.server.am.ActivityStack的resumeTopActivityInnerLocked()方法中有一句注释：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// We need to start pausing the current activity so the top one</span><br><span class="line">        // can be resumed...</span><br></pre></td></tr></table></figure></p>
+<p>前一个Activity执行onPause()后才会创建后一个Activity。也正因此，不能在onPause()中执行过重的操作，会影响后面Activity的展示速度。</p>
+<h3 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h3><p>Q：问题1中，从Activity B回退到Activity A，其生命周期过程是怎样的？<br>A：如果B非透明，则为：B.onPause()-&gt;A.onRestart()-&gt;A.onStart()-&gt;A.onResume-&gt;B.onStop()-&gt;B.onDestory()；<br>如果B透明，则为：B.onPausee()-&gt;A.onResume()-&gt;B.onStop()-&gt;B.onDestory()。<br>问题1中已经提到过，如果B是透明的，A是不会onStop()的，A一直处于可见状态，只需要执行onResume()就回到前台了。</p>
+<h2 id="异常情况之onConfigurationChanged"><a href="#异常情况之onConfigurationChanged" class="headerlink" title="异常情况之onConfigurationChanged"></a>异常情况之onConfigurationChanged</h2><p>以旋转屏幕为例</p>
+<h3 id="生命周期过程"><a href="#生命周期过程" class="headerlink" title="生命周期过程"></a>生命周期过程</h3><p>默认情况下，旋转屏幕后，系统会把当前状态保存到Bundle中，然后销毁界面重新创建一个新界面，再从Bundle中恢复数据。其过程如下：<br>onPause()-&gt;onSaveInstanceState()-&gt;onStop()-&gt;onDestory()<br>-&gt;onCreate()-&gt;onStart()-&gt;onRestoreInstanceState()-&gt;onResume<br>如图界面：有一个EditText，输入值为“123”</p>
+<p><img src="../../../../images/activity_life_cycle2_1.png" alt=""><br>旋转屏幕，打印Bundle，其中关于这个EditText(extends TextView)的信息如下：</p>
+<p><img src="../../../../images/activity_life_cycle2_2.png" alt=""><br>这个TextView.SavedState就是保存下来的TextView的数据了。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * User interface state that is stored by TextView for implementing</span></span><br><span class="line"><span class="comment">    * &#123;<span class="doctag">@link</span> View#onSaveInstanceState&#125;.</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SavedState</span> <span class="keyword">extends</span> <span class="title">BaseSavedState</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> selStart;</span><br><span class="line">       <span class="keyword">int</span> selEnd;</span><br><span class="line">       CharSequence text;</span><br><span class="line">       <span class="keyword">boolean</span> frozenWithFocus;</span><br><span class="line">       CharSequence error;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>在系统调用了Activity的onSaveInstanceState()方法后，最终都会分发到这个Activity内的每个View中。onRestoreInstanceState()同理。<br>以TextView的onRestoreInstanceState()方法为例，它就是从SavedState中读出数据恢复TextView的各个状态（输入值、选中状态…）。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRestoreInstanceState</span><span class="params">(Parcelable state)</span> </span>&#123;</span><br><span class="line">   ……</span><br><span class="line">    SavedState ss = (SavedState)state;</span><br><span class="line">    <span class="keyword">super</span>.onRestoreInstanceState(ss.getSuperState());</span><br><span class="line">    <span class="keyword">if</span> (ss.text != <span class="keyword">null</span>) &#123;</span><br><span class="line">        setText(ss.text);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ss.selStart &gt;= <span class="number">0</span> &amp;&amp; ss.selEnd &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (mText <span class="keyword">instanceof</span> Spannable) &#123;</span><br><span class="line">            <span class="keyword">int</span> len = mText.length();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (ss.selStart &gt; len || ss.selEnd &gt; len) &#123;</span><br><span class="line">                String restored = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (ss.text != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    restored = <span class="string">"(restored) "</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                Selection.setSelection((Spannable) mText, ss.selStart, ss.selEnd);</span><br><span class="line">                <span class="keyword">if</span> (ss.frozenWithFocus) &#123;</span><br><span class="line">                    createEditorIfNeeded();</span><br><span class="line">                    mEditor.mFrozenWithFocus = <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以设置android:configChanges属性，使之不进行销毁重建。</p>
+<h3 id="异常情况之内存不足的情况"><a href="#异常情况之内存不足的情况" class="headerlink" title="异常情况之内存不足的情况"></a>异常情况之内存不足的情况</h3><p>这种情况下，系统会按照Activity的优先级，回收低优先级的Activity。其过程也是先调用onSaveInstanceState()，等到需要展示的时候再通过onRestoreInstanceState()恢复Activity。<br>优先级：前台Activity &gt; 可见的后台Activity &gt; 不可见Activity</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/07/26/Activity的生命周期/" data-id="cjk27s9vz00003iz001qclz8c" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../../../08/09/View基础/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          View基础
+        
+      </div>
+    </a>
+  
+  
+    <a href="../../24/recycle机制/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Handler机制中的recycle机制</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../../../archives/2017/07/">July 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../../10/07/IPC机制粗解/">IPC机制粗解</a>
+          </li>
+        
+          <li>
+            <a href="../../../10/03/Drawable/">Drawable</a>
+          </li>
+        
+          <li>
+            <a href="../../../09/21/View的layout、draw过程/">View的layout、draw过程</a>
+          </li>
+        
+          <li>
+            <a href="../../../09/21/view的measure的源码分析/">view的measure过程</a>
+          </li>
+        
+          <li>
+            <a href="../../../09/20/View的绘制/">View的绘制</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Hangmin Tian<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../../../js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

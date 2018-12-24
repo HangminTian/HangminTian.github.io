@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>HangminTian&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="HangminTian&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="HangminTian&#39;s Blog">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HangminTian&#39;s Blog">
+  
+    <link rel="alternate" href="/atom.xml" title="HangminTian&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="index.html" id="logo">HangminTian&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="index.html">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-事件分发机制和一般滑动冲突解决策略" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="2017/09/15/事件分发机制和一般滑动冲突解决策略/" class="article-date">
+  <time datetime="2017-09-15T02:19:00.000Z" itemprop="datePublished">2017-09-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="2017/09/15/事件分发机制和一般滑动冲突解决策略/">事件分发机制和一般滑动冲突解决策略</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言　　"></a>前言　　</h1><p>事件分发机制是很多滑动冲突解决的基础，以这篇文章简单小结一下。</p>
+<h1 id="罗列一些关键的东西"><a href="#罗列一些关键的东西" class="headerlink" title="罗列一些关键的东西"></a>罗列一些关键的东西</h1><h2 id="几个最常用的MotionEvent-Action"><a href="#几个最常用的MotionEvent-Action" class="headerlink" title="几个最常用的MotionEvent Action"></a>几个最常用的MotionEvent Action</h2><ul>
+<li>ACTION_DOWN</li>
+<li>ACTION_UP</li>
+<li>ACTION_MOVE</li>
+<li>ACTION_CANCLE<br>在本文接下去的内容中，将以down、up、move、cancle来指代。<h2 id="几个重要方法"><a href="#几个重要方法" class="headerlink" title="几个重要方法"></a>几个重要方法</h2></li>
+<li>boolean dispatchTouchEvent(MotionEvent ev)<br>  事件分发的起点，返回结果表示当前View是否消费事件</li>
+<li>boolean onInterceptTouchEvent(MotionEvent ev)<br>  表示是否拦截 ，如果拦截了(true)，则交给当前View的onTouchEvent处理。此方法只有ViewGroup拥有，View是没有的。</li>
+<li>boolean onTouchEvent(MotionEvent ev)<br> 返回当前View是否消费事件<br>下面这段伪代码可以很好的表示这3个方法之间的关系：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchTouchEvent</span><span class="params">(MotionEvent ev)</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span>( onInterceptTouchEvent(ev) )&#123;</span><br><span class="line">            <span class="keyword">return</span> onTouchEent(ev) ;     </span><br><span class="line">      &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> child.dispatchTouchEvent(ev);        </span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="两个例子分析"><a href="#两个例子分析" class="headerlink" title="两个例子分析"></a>两个例子分析</h1><h2 id="例子1"><a href="#例子1" class="headerlink" title="例子1"></a>例子1</h2><p><img src="../../../../images/abc1.png" alt=""><br>有一个Down事件发生在C的区域内，A/B都不需要处理事件。<br>希望以例子1来说明事件从上到下分发、从下至上反馈的一个过程。<br>首先，默认情况下，<br>step1: A.dispatchTouchEvent<br>A不需要拦截，onInterceptTouchEvent()方法返回false，事件分发给B；<br>step2: B.dispatchTouchEvent<br>B也不需要拦截，onInterceptTouchEvent()方法返回false，事件分发给C；<br>step3:C.dispatchTouchEvent<br>C没有onInterceptTouchEvent()方法，只能交给onTouchEvent().<br>情况1： C在onTouchEvent()中消费了事件，则C的dispathchTouchEvent()返回true，一直向上B/A 的dispathchTouchEvent()都返回true，剩下的MOVE时间(如果有的话)、UP时间也都交给C的onTouchEvent()处理。<br>情况2：C在onTouchEvent()时间没有消费事件(不可被点击，即clickable和longClickable都为false)，则返回False。事件交还给B处理，B再交还给A处理。直到事件被消耗或是顶层View处理。</p>
+<p>小结：<br>事件从上至下分发，如果没有被拦截，会一直交给底层的View处理。如果底层的View没有消费(不可点击)，则会依次向上交给parent处理。<br>上到下，是onInterceptTouchEvent的调用链；下到上，是onTouchEvent的调用链。其中任何一个步骤返回true，事件就消耗掉了。</p>
+<h2 id="例子2"><a href="#例子2" class="headerlink" title="例子2"></a>例子2</h2><p><img src="../../../../images/abc2.png" alt=""><br>例子2中，A是一个不需要处理时间的ViewGroup，B是一个可滚动的ViewGroup（ListView），C是ListView的一个可点击的Item。一个Down时间发生在C上。<br>整个过程如下：<br>Step1：A不拦截，onInterceptTouchEvent()返回false，分发给B。<br>Step2 :  B也不拦截，onInterceptTouchEvent()返回false，分发给C。<br>Step3： C消费了Down事件，onTouchEvent()返回true。<br>接下去，Move事件来了。<br>B是个滚动的View啊，B就拦截了View事件，onInterceptTouchEvent()返回了true，自己处理了Move事件，将内容滑动了一下，并继续接收接下来的Move事件。同时分发了一个cancle事件给C，C收到Cancle事件，也就不接收接下去的Move事件了。</p>
+<p>以下是ListView中onInterceptTouchEvent()方法中的一小段源码，说明了这个问题：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (startScrollIfNeeded((<span class="keyword">int</span>) ev.getX(pointerIndex), y, <span class="keyword">null</span>)) &#123;</span><br><span class="line">                  <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>C可以通过requestDisallowInterceptTouchEvent()阻止B拦截事件，假如C需要处理MOVE事件的话。</p>
+<p>小结：<br>如果一个ViewGroup拦截了最初的DOWN事件，该事件仍然会传递到该ViewGroup的onTouchEvent()方法中。如果ViewGroup拦截了一个半路的事件（MOVE），这个事件将会被系统变成一个CANCEL事件，并传递给之前处理DOWN事件的View，接下来的事件将交给ViewGroup的onTouchEvent()处理。</p>
+<h1 id="一般的滑动冲突解决策略"><a href="#一般的滑动冲突解决策略" class="headerlink" title="一般的滑动冲突解决策略"></a>一般的滑动冲突解决策略</h1><h2 id="外部拦截-onInterceptTouchEvent"><a href="#外部拦截-onInterceptTouchEvent" class="headerlink" title="外部拦截( onInterceptTouchEvent() )"></a>外部拦截( onInterceptTouchEvent() )</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onInterceptTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (event.getAction()) &#123;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_MOVE: &#123;</span><br><span class="line">                <span class="keyword">if</span> (当前控件需要拦截事件) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="内部拦截-requestDisallowInterceptTouchEvent"><a href="#内部拦截-requestDisallowInterceptTouchEvent" class="headerlink" title="内部拦截( requestDisallowInterceptTouchEvent() )"></a>内部拦截( requestDisallowInterceptTouchEvent() )</h2><p>View中：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (event.getAction()) &#123;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_MOVE: &#123;</span><br><span class="line">                <span class="keyword">if</span> ( 需要parent拦截事件) &#123;</span><br><span class="line">                    mHorizontalScrollViewEx2.requestDisallowInterceptTouchEvent(<span class="keyword">false</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.dispatchTouchEvent(event);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>parent中：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onInterceptTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (event.getAction() == MotionEvent.ACTION_DOWN) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/09/15/事件分发机制和一般滑动冲突解决策略/" data-id="cjq2h6nhg0000gljdsk0vw5k6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="archives/2017/09/">September 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="2017/09/15/事件分发机制和一般滑动冲突解决策略/">事件分发机制和一般滑动冲突解决策略</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Hangmin Tian<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="fancybox/jquery.fancybox.css">
+  <script src="fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
